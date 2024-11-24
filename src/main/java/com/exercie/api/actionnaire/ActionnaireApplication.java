@@ -20,13 +20,6 @@ public class ActionnaireApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ActionnaireApplication.class, args);
-
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ActionnaireApplication.class);
-		RecupererBeneficiaireUsecase myService = context.getBean(RecupererBeneficiaireUsecase.class);
-
-		myService.getBeneficiaires(1, Scope.ALL).forEach(System.out::println);
-
-		context.close();
 	}
 
 	@Bean
