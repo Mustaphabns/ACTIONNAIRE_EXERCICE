@@ -1,19 +1,10 @@
 package com.exercie.api.actionnaire.domain;
 
+import java.util.List;
+
 public sealed interface Beneficiaire {
 
-    String getNom();
-    record PersonnePhysique(String nom) implements Beneficiaire {
-        @Override
-        public String getNom() {
-            return nom;
-        }
-    }
+    record PersonnePhysique(String nom) implements Beneficiaire { }
 
-    record PersonneMorale(String nom) implements Beneficiaire {
-        @Override
-        public String getNom() {
-            return nom;
-        }
-    }
+    record PersonneMorale(String nom, List<Action> actions) implements Beneficiaire { }
 }
