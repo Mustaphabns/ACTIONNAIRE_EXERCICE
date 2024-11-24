@@ -4,10 +4,16 @@ import java.util.Objects;
 
 public sealed interface BeneficiaireTarget {
     float getPart();
+    String getName();
     record PersonnePhysique(String nom, float part) implements BeneficiaireTarget {
         @Override
         public float getPart() {
             return part;
+        }
+
+        @Override
+        public String getName() {
+            return nom;
         }
 
         public boolean estBeneficiaireEffectif(){
@@ -32,6 +38,12 @@ public sealed interface BeneficiaireTarget {
         public float getPart() {
             return part;
         }
+
+        @Override
+        public String getName() {
+            return nom;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
