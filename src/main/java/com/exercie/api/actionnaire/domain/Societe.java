@@ -23,7 +23,7 @@ public class Societe {
     public List<BeneficiaireTarget> getBeneficiaires(){
         List<BeneficiaireTarget> beneficiaires = new ArrayList<>();
         for (var action : actions){
-            beneficiaires.add(new BeneficiaireTarget(action.personnePhysique().nom(), action.part()));
+            beneficiaires.add(new BeneficiaireTarget(action.beneficiaire().getNom(), action.part()));
         }
         return Collections.unmodifiableList(beneficiaires);
     }

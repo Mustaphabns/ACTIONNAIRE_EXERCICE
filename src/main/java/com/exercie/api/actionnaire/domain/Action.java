@@ -1,4 +1,4 @@
 package com.exercie.api.actionnaire.domain;
 
-public record Action(PersonnePhysique personnePhysique, float part) {
+public record Action(Beneficiaire beneficiaire, float part) {
 }
