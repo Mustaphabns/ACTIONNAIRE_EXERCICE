@@ -4,6 +4,7 @@ import com.exercie.api.actionnaire.domain.Action;
 import com.exercie.api.actionnaire.domain.Beneficiaire;
 import com.exercie.api.actionnaire.domain.Societe;
 import com.exercie.api.actionnaire.usecase.RecupererBeneficiaireUsecase;
+import com.exercie.api.actionnaire.usecase.Scope;
 import com.exercie.api.actionnaire.usecase.annotation.DomainService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +24,7 @@ public class ActionnaireApplication {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ActionnaireApplication.class);
 		RecupererBeneficiaireUsecase myService = context.getBean(RecupererBeneficiaireUsecase.class);
 
-		myService.beneficiaireTargets(1).forEach(System.out::println);
+		myService.getBeneficiaires(1, Scope.ALL).forEach(System.out::println);
 
 		context.close();
 	}

@@ -3,7 +3,7 @@ package com.exercie.api.actionnaire.usecase;
 import com.exercie.api.actionnaire.domain.BeneficiaireTarget;
 import com.exercie.api.actionnaire.domain.Societe;
 import com.exercie.api.actionnaire.usecase.annotation.DomainService;
-import com.exercie.api.actionnaire.usecase.gateway.BeneficiairesDataAccessGateway;
+import com.exercie.api.actionnaire.usecase.gateway.SocieteDataAccessGateway;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -12,14 +12,27 @@ import java.util.List;
 @AllArgsConstructor
 public class RecupererBeneficiaireUsecase {
 
-    BeneficiairesDataAccessGateway beneficiairesDataAccessGateway;
+    SocieteDataAccessGateway societeDataAccessGateway;
 
-    public List<BeneficiaireTarget> beneficiaireTargets(int societeId){
-        Societe societe = beneficiairesDataAccessGateway.getSocietes().stream()
+    public List<BeneficiaireTarget> getBeneficiaires(int societeId, Scope scope){
+
+        Societe societe = societeDataAccessGateway.getSocietes().stream()
                 .filter(s -> s.getSocieteId() == societeId)
                 .findFirst()
                 .orElseThrow();
-        return societe.getBeneficiaires();
+        var beneficiaire =  switch (scope){
+            case ALL -> societe.getBeneficiaires();
+            case PERSONNE_PHYSIQUE -> societe.getBeneficiaires().stream()
+                    .filter(beneficiaireTarget -> beneficiaireTarget instanceof BeneficiaireTarget.PersonnePhysique)
+                    .toList();
+            case BENEFICIAIRE_EFFECTIFS -> societe.getBeneficiaires().stream()
+                    .filter(beneficiaireTarget ->
+                            beneficiaireTarget instanceof BeneficiaireTarget.PersonnePhysique p && p.estBeneficiaireEffectif())
+                    .toList();
+        };
+
+        return beneficiaire;
+
     }
 
 }

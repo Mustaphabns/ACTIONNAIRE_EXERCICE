@@ -9,6 +9,11 @@ public sealed interface BeneficiaireTarget {
         public float getPart() {
             return part;
         }
+
+        public boolean estBeneficiaireEffectif(){
+            return part >= .25f;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;

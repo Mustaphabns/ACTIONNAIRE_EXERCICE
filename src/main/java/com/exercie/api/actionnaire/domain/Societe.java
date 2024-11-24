@@ -31,7 +31,7 @@ public class Societe {
         for (var action : getActions()){
             getSousBeneficiares(action, beneficiaires);;
         }
-        return Collections.unmodifiableList(beneficiaires);
+        return Collections.unmodifiableList(aditionneParts(beneficiaires));
     }
     private List<BeneficiaireTarget> getSousBeneficiares(Action action, List<BeneficiaireTarget> benificiaires){
 
@@ -44,7 +44,7 @@ public class Societe {
             }
         }
 
-        return aditionneParts(benificiaires);
+        return benificiaires;
     }
 
     private void next(Beneficiaire.PersonneMorale beneficiaire, float part, List<BeneficiaireTarget> benificiares){

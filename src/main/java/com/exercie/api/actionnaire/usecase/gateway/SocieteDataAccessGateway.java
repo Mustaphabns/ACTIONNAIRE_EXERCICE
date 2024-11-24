@@ -4,6 +4,6 @@ import com.exercie.api.actionnaire.domain.Societe;
 
 import java.util.List;
 
-public interface BeneficiairesDataAccessGateway {
+public interface SocieteDataAccessGateway {
     List<Societe> getSocietes();
 }
