@@ -20,12 +20,26 @@ public class Societe {
         this.actions = actions;
     }
 
+    public List<Action> getActions() {
+        return actions != null ? Collections.unmodifiableList(actions) : List.of();
+    }
+
     public List<BeneficiaireTarget> getBeneficiaires(){
         List<BeneficiaireTarget> beneficiaires = new ArrayList<>();
-        for (var action : actions){
-            beneficiaires.add(new BeneficiaireTarget(action.beneficiaire().getNom(), action.part()));
+        for (var action : getActions()){
+            getSousBeneficiares(action, beneficiaires);;
         }
         return Collections.unmodifiableList(beneficiaires);
+    }
+    private List<BeneficiaireTarget> getSousBeneficiares(Action action, List<BeneficiaireTarget> benificiaires){
+
+        switch (action.beneficiaire()) {
+            case Beneficiaire.PersonnePhysique p->  benificiaires
+                    .add(new BeneficiaireTarget.PersonnePhysique(p.nom(), action.part()));
+            case Beneficiaire.PersonneMorale m -> benificiaires.add(new BeneficiaireTarget.PersonneMorale(m.nom(), action.part()));
+        }
+
+        return benificiaires;
     }
 
 }
