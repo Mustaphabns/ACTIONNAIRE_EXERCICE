@@ -7,16 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
 public class BeneficaireExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntrepriseNonTrouverException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<BeneficiaireResponseError> entrepriseNotFoundException(EntrepriseNonTrouverException abt) {
        return new ResponseEntity<>(new BeneficiaireResponseError(abt.getMessage(), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(AucunBeneficiaireTrouverException.class)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<BeneficiaireResponseError> aucunBeneficiaireTrouverException(AucunBeneficiaireTrouverException ete) {
        return  new ResponseEntity<>(new BeneficiaireResponseError(ete.getMessage(), HttpStatus.ACCEPTED.value()), HttpStatus.ACCEPTED);
     }

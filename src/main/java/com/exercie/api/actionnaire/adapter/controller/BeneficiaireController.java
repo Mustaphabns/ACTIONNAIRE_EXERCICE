@@ -3,6 +3,7 @@ package com.exercie.api.actionnaire.adapter.controller;
 import com.exercie.api.actionnaire.adapter.representation.BeneficiaireRepresentation;
 
 import com.exercie.api.actionnaire.usecase.RecupererBeneficiaireUsecase;
+import com.exercie.api.actionnaire.usecase.Scope;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -34,7 +35,7 @@ public class BeneficiaireController {
     @GetMapping
     public List<BeneficiaireRepresentation> rechercher(@RequestParam @Valid int societeId,
                                                        @RequestParam(defaultValue = "ALL")
-                                                       @Valid  String scope){
+                                                       @Valid Scope scope){
         var beneficiaresDomain = recupererBeneficiaireUsecase.getBeneficiaires(societeId, scope).stream().toList();
         return BeneficiaireRepresentation.fromDomain(beneficiaresDomain);
     }
